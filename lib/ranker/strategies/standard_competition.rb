@@ -7,10 +7,11 @@ module Ranker::Strategies
 
     # Methods:
 
-    def rank(values)
-      values_map = values.group_by { |value|
-        value
-      }
+    def rank(values, &block)
+      unless block_given?
+        block = lambda { |value| value }
+      end
+      values_map = values.group_by(&block)
       values_sorted = values_map.keys.sort!.reverse!
       rankings = Ranker::Rankings.new
       current_rank = 1

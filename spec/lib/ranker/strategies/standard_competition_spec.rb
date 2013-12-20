@@ -92,6 +92,38 @@ describe Ranker::Strategies::StandardCompetition do
 
       end # list of values is small
 
+      context 'when ranking with a block' do
+        let(:value_1) { Array.new(3) }
+        let(:value_2) { Array.new(2) }
+        let(:value_3) { Array.new(2) }
+        let(:value_4) { Array.new(1) }
+        let(:values) { [value_1, value_2, value_3, value_4] }
+        let(:rankings) { strategy.rank(values, &:count) }
+        it { should have(3).items }
+
+        context '1st ranking' do
+          let(:ranking) { rankings[0] }
+          subject { ranking }
+          its(:rank) { should == 1 }
+          its(:values) { should == [value_1] }
+        end
+
+        context '2nd ranking' do
+          let(:ranking) { rankings[1] }
+          subject { ranking }
+          its(:rank) { should == 2 }
+          its(:values) { should == [value_2, value_3] }
+        end
+
+        context '3rd ranking' do
+          let(:ranking) { rankings[2] }
+          subject { ranking }
+          its(:rank) { should == 4 }
+          its(:values) { should == [value_4] }
+        end
+
+      end # when ranking with a block
+
     end # rank
 
   end # methods
