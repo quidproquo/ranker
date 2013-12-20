@@ -17,8 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*']
 
   # Development:
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'rspec'
-  # s.add_development_dependency 'ruby-debug'
 
 end
 
