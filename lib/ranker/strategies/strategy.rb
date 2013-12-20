@@ -1,6 +1,6 @@
-module Ranker
+module Ranker::Strategies
 
-  class RankingStrategy
+  class Strategy
 
     # Methods:
 

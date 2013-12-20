@@ -1,9 +1,9 @@
-module Ranker
+module Ranker::Strategies
 
   ##
   # Ranks values according to: http://en.wikipedia.org/wiki/Ranking#Standard_competition_ranking_.28.221224.22_ranking.29
   #
-  class StandardCompetitionRankingStrategy < RankingStrategy
+  class StandardCompetition < Strategy
 
     # Methods:
 
@@ -12,14 +12,14 @@ module Ranker
         value
       }
       values_sorted = values_map.keys.sort!.reverse!
-      rankings = Rankings.new
-      rankings_above = 1
+      rankings = Ranker::Rankings.new
+      current_rank = 1
       values_sorted.each_with_index { |value, index|
-        rank = rankings_above
+        rank = current_rank
         values_for_ranking = values_map[value]
-        ranking = Ranking.new(rank, values_for_ranking)
+        ranking = Ranker::Ranking.new(rank, values_for_ranking)
         rankings << ranking
-        rankings_above += values_for_ranking.count
+        current_rank += values_for_ranking.count
       }
       rankings
     end
