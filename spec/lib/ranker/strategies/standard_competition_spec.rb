@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe Ranker::Strategies::StandardCompetition do
-  let(:strategy) { Ranker::Strategies::StandardCompetition.new }
+  let(:klass) { Ranker::Strategies::StandardCompetition }
 
   describe :methods do
 
     describe :rank do
       let(:values) { raise ArgumentError }
-      let(:rankings) { strategy.rank(values) }
+      let(:strategy) { klass.new(values) }
+      let(:rankings) { strategy.rank }
       subject { rankings }
 
       context 'when list of values is large' do
@@ -92,13 +93,13 @@ describe Ranker::Strategies::StandardCompetition do
 
       end # list of values is small
 
-      context 'when ranking with a block' do
+      context 'when ranking with a non-default selector' do
         let(:value_1) { Array.new(3) }
         let(:value_2) { Array.new(2) }
         let(:value_3) { Array.new(2) }
         let(:value_4) { Array.new(1) }
         let(:values) { [value_1, value_2, value_3, value_4] }
-        let(:rankings) { strategy.rank(values, &:count) }
+        let(:strategy) { klass.new(values, scorer: lambda { |value| value.count }) }
         it { should have(3).items }
 
         context '1st ranking' do

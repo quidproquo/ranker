@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe Ranker::Strategies::StandardCompetition do
-  let(:strategy) { Ranker::Strategies::Dense.new }
+  let(:klass) { Ranker::Strategies::Dense }
 
   describe :methods do
 
     describe :rank do
       let(:values) { raise ArgumentError }
-      let(:rankings) { strategy.rank(values) }
+      let(:strategy) { klass.new(values) }
+      let(:rankings) { strategy.rank }
       subject { rankings }
 
       context 'when list of values is large' do

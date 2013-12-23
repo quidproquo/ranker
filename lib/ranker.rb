@@ -10,19 +10,42 @@ module Ranker
 
   class << self
 
-    def rank(values)
-      values_map = values.group_by { |value|
-        value
+    def rank(values, *options)
+      if options && options.kind_of(Hash)
+        options = default_options.merge(options)
+      else
+        options = default_options
+      end
+      strategy = get_strategy(values, options.except(:strategy))
+      strategy.rank
+    end
+
+
+    protected
+
+    # Properties:
+
+    def default_options
+      {
+        strategy: :standard_competition,
+        scorer: lambda { |score| score },
+        asc: true
       }
-      values_sorted = values_map.keys.sort!.reverse!
-      rankings = Rankings.new
-      values_sorted.each_with_index { |value, index|
-        rank = index + 1
-        values_for_ranking = values_map[value]
-        ranking = Ranking.new(rank, values_for_ranking)
-        rankings << ranking
-      }
-      rankings
+    end
+
+    # Methods:
+
+    def get_strategy(values, options)
+      strategy_class = get_strategy_class(options[:strategy])
+      strategy_class.new(valuew, options)
+    end
+
+    def get_strategy_class(strategy)
+      unless strategy.kind_of(Class)
+        "Ranker::Strategies::#{strategy.to_s.camelcase}".constantize
+      else
+        strategy
+      end
     end
 
   end # class methods

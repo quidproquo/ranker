@@ -7,17 +7,11 @@ module Ranker::Strategies
 
     # Methods:
 
-    def rank(values)
-      values_map = values.group_by { |value|
-        value
-      }
-      values_sorted = values_map.keys.sort!.reverse!
-      rankings = Ranker::Rankings.new
-      values_sorted.each_with_index { |value, index|
+    def rank
+      scores_unique_sorted.each_with_index { |score, index|
         rank = index + 1
-        values_for_ranking = values_map[value]
-        ranking = Ranker::Ranking.new(rank, values_for_ranking)
-        rankings << ranking
+        values_for_score = values_for_score(score)
+        create_ranking(rank, score, values_for_score)
       }
       rankings
     end

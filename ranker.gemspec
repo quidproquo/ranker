@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Ranker::VERSION
   s.authors     = ['Ilya Scharrenbroich']
   s.email       = ['ilya.j.s@gmail.com']
-  s.homepage    = 'https://bitbucket.org/quidproquo/ranker'
+  s.homepage    = 'https://github.com/quidproquo/ranker'
   s.summary     = 'Library that enables the ranking of lists of items using various ranking strategies.'
 
   s.files = Dir['{lib}/**/*'] + ['README.md']
