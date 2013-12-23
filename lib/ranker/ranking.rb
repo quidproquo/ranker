@@ -14,6 +14,13 @@ module Ranker
 
     # Properties:
 
+    def percenitle
+
+    end
+
+    def z_score
+
+    end
 
   end # class
 

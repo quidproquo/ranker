@@ -19,6 +19,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[0] }
           subject { ranking }
           its(:rank) { should == 1 }
+          its(:score) { should == 7 }
           its(:values) { should == [7, 7, 7] }
         end
 
@@ -26,6 +27,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[1] }
           subject { ranking }
           its(:rank) { should == 4 }
+          its(:score) { should == 6 }
           its(:values) { should == [6] }
         end
 
@@ -33,6 +35,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[2] }
           subject { ranking }
           its(:rank) { should == 5 }
+          its(:score) { should == 5 }
           its(:values) { should == [5] }
         end
 
@@ -40,6 +43,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[3] }
           subject { ranking }
           its(:rank) { should == 6 }
+          its(:score) { should == 4 }
           its(:values) { should == [4] }
         end
 
@@ -47,6 +51,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[4] }
           subject { ranking }
           its(:rank) { should == 7 }
+          its(:score) { should == 3 }
           its(:values) { should == [3, 3, 3] }
         end
 
@@ -54,6 +59,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[5] }
           subject { ranking }
           its(:rank) { should == 10 }
+          its(:score) { should == 2 }
           its(:values) { should == [2] }
         end
 
@@ -61,6 +67,7 @@ describe Ranker::Strategies::StandardCompetition do
           let(:ranking) { rankings[6] }
           subject { ranking }
           its(:rank) { should == 11 }
+          its(:score) { should == 1 }
           its(:values) { should == [1, 1, 1, 1] }
         end
 
