@@ -13,19 +13,23 @@ module Ranker
     # Properties:
 
     def mean
-      @mean ||= (scores.sum / scores.count)
+      @mean ||= (total.to_f / num_scores)
     end
 
     def standard_deviation
       @standard_deviation ||= Math.sqrt(variance)
     end
 
-    def population_size
+    def num_scores
       scores.size
     end
 
     def variance
-      (total_difference / population_size)
+      @variance ||= (total_difference.to_f / num_scores)
+    end
+
+    def total
+      @total ||= scores.reduce(:+)
     end
 
     def total_difference

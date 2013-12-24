@@ -7,14 +7,13 @@ module Ranker::Strategies
 
     # Methods:
 
-    def rank
+    def execute
       rank = 1
       scores_unique_sorted.each_with_index { |score, index|
         values_for_score = values_for_score(score)
         create_ranking(rank, score, values_for_score)
         rank += values_for_score.count
       }
-      rankings
     end
 
   end # class

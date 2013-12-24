@@ -7,7 +7,7 @@ module Ranker::Strategies
 
     # Methods:
 
-    def rank
+    def execute
       rank = 0
       scores_unique_sorted.each_with_index { |score, index|
         values_for_score = values_for_score(score)
@@ -19,7 +19,6 @@ module Ranker::Strategies
           create_ranking(rank, score, values_for_score)
         end
       }
-      rankings
     end
 
   end # class

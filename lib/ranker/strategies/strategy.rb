@@ -25,7 +25,8 @@ module Ranker::Strategies
 
 
     def rank
-      raise NotImplementedError.new('You must implement rank.')
+      execute
+      rankings
     end
 
 
@@ -65,6 +66,10 @@ module Ranker::Strategies
 
     def create_ranking(rank, score, values)
       rankings.create(rank, score, values)
+    end
+
+    def execute
+      raise NotImplementedError.new('You must implement rank.')
     end
 
     def values_for_score(score)
