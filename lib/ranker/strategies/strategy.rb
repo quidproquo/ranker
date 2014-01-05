@@ -36,8 +36,8 @@ module Ranker::Strategies
 
     def default_options
       {
-        score: lambda { |score| score },
-        asc: true
+        :score => lambda { |score| score },
+        :asc => true
       }
     end
 

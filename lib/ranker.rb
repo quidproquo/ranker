@@ -14,10 +14,10 @@ module Ranker
 
     def strategies
       @strategies ||= {
-        standard_competition: Ranker::Strategies::StandardCompetition,
-        modified_competition: Ranker::Strategies::ModifiedCompetition,
-        dense: Ranker::Strategies::Dense,
-        ordinal: Ranker::Strategies::Ordinal
+        :standard_competition => Ranker::Strategies::StandardCompetition,
+        :modified_competition => Ranker::Strategies::ModifiedCompetition,
+        :dense => Ranker::Strategies::Dense,
+        :ordinal => Ranker::Strategies::Ordinal
       }
     end
 
@@ -40,9 +40,9 @@ module Ranker
 
     def default_options
       {
-        strategy: :standard_competition,
-        score: lambda { |score| score },
-        asc: true
+        :strategy => :standard_competition,
+        :score => lambda { |score| score },
+        :asc => true
       }
     end
 
