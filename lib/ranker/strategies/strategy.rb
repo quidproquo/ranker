@@ -36,13 +36,13 @@ module Ranker::Strategies
 
     def default_options
       {
-        scorer: lambda { |score| score },
+        score: lambda { |score| score },
         asc: true
       }
     end
 
-    def scorer
-      options[:scorer]
+    def score
+      options[:score]
     end
 
     def sort_asc?
@@ -50,7 +50,7 @@ module Ranker::Strategies
     end
 
     def values_grouped_by_score
-      @values_grouped_by_score ||= values.group_by(&scorer)
+      @values_grouped_by_score ||= values.group_by(&score)
     end
 
     def scores_unique_sorted
@@ -69,7 +69,7 @@ module Ranker::Strategies
     end
 
     def execute
-      raise NotImplementedError.new('You must implement rank.')
+      raise NotImplementedError.new('You must implement the execute method.')
     end
 
     def values_for_score(score)

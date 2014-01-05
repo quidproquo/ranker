@@ -10,13 +10,26 @@ module Ranker
 
   class << self
 
+    # Properties:
+
+    def strategies
+      @strategies ||= {
+        standard_competition: Ranker::Strategies::StandardCompetition,
+        modified_competition: Ranker::Strategies::ModifiedCompetition,
+        dense: Ranker::Strategies::Dense,
+        ordinal: Ranker::Strategies::Ordinal
+      }
+    end
+
+    # Methods:
+
     def rank(values, *options)
-      if options && options.kind_of(Hash)
+      if options && options.kind_of?(Hash)
         options = default_options.merge(options)
       else
-        options = default_options
+        options = default_options.merge({})
       end
-      strategy = get_strategy(values, options.except(:strategy))
+      strategy = get_strategy(values, options)
       strategy.rank
     end
 
@@ -28,7 +41,7 @@ module Ranker
     def default_options
       {
         strategy: :standard_competition,
-        scorer: lambda { |score| score },
+        score: lambda { |score| score },
         asc: true
       }
     end
@@ -37,14 +50,18 @@ module Ranker
 
     def get_strategy(values, options)
       strategy_class = get_strategy_class(options[:strategy])
-      strategy_class.new(valuew, options)
+      strategy_class.new(values, options)
     end
 
     def get_strategy_class(strategy)
-      unless strategy.kind_of(Class)
-        "Ranker::Strategies::#{strategy.to_s.camelcase}".constantize
-      else
+      if strategy.kind_of?(Class)
         strategy
+      else
+        if strategy = strategies[strategy]
+          strategy
+        else
+          raise ArgumentError.new("Unknown strategy: #{strategy}")
+        end
       end
     end
 

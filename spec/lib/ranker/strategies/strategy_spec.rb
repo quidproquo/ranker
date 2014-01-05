@@ -10,7 +10,7 @@ describe Ranker::Strategies::StandardCompetition do
     its(:values) { should == values }
     its(:rankings) { should be }
     its(:options) { should be }
-    its(:scorer) { should be }
+    its(:score) { should be }
   end
 
   describe :methods do
