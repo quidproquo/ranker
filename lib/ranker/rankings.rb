@@ -17,7 +17,12 @@ module Ranker
     end
 
     def standard_deviation
-      @standard_deviation ||= Math.sqrt(variance)
+      @standard_deviation ||= if variance.nan?
+        # For ruby-1.8.7 compatibility
+        variance
+      else
+        Math.sqrt(variance)
+      end
     end
 
     def num_scores

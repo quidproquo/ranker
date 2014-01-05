@@ -41,7 +41,7 @@ module Ranker
     def default_options
       {
         :strategy => :standard_competition,
-        :score => lambda { |score| score },
+        :score => lambda { |scorable| scorable },
         :asc => true
       }
     end

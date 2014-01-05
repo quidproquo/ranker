@@ -100,13 +100,13 @@ describe Ranker::Strategies::StandardCompetition do
 
       end # list of values is small
 
-      context 'when ranking with a non-default selector' do
-        let(:value_1) { Array.new(3) }
-        let(:value_2) { Array.new(2) }
-        let(:value_3) { Array.new(2) }
-        let(:value_4) { Array.new(1) }
+      context 'when ranking with a non-default score lambda' do
+        let(:value_1) { {:score => 3} }
+        let(:value_2) { {:score => 2} }
+        let(:value_3) { {:score => 2} }
+        let(:value_4) { {:score => 1} }
         let(:values) { [value_1, value_2, value_3, value_4] }
-        let(:strategy) { klass.new(values, :scorer => lambda { |value| value.count }) }
+        let(:strategy) { klass.new(values, :score => lambda { |scorable| scorable[:score] }) }
         it { should have(3).items }
 
         context '1st ranking' do

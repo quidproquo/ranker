@@ -4,12 +4,13 @@ module Ranker::Strategies
 
     attr_reader :values, :options
 
-    def initialize(values, *options)
+    def initialize(values, *args)
       @values = values
+      options = args.pop
       if options && options.kind_of?(Hash)
         @options = default_options.merge(options)
       else
-        @options = default_options
+        @options = default_options.merge({})
       end
     end
 
@@ -36,7 +37,7 @@ module Ranker::Strategies
 
     def default_options
       {
-        :score => lambda { |score| score },
+        :score => lambda { |scorable| scorable },
         :asc => true
       }
     end
