@@ -19,7 +19,7 @@ module Ranker
     end
 
     def percentile
-      @percentile ||= (scores_at_or_below.to_f / rankings.num_scores) * 100
+      @percentile ||= (num_scores_at_or_below.to_f / rankings.num_scores) * 100
     end
 
     def z_score
@@ -32,7 +32,7 @@ module Ranker
 
     protected
 
-    def scores_at_or_below
+    def num_scores_at_or_below
       @scores_at_or_below ||= rankings[index..rankings.num_scores].reduce(0) { |sum, ranking|
         sum + ranking.num_values
       }

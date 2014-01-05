@@ -13,7 +13,7 @@ module Ranker
     # Properties:
 
     def mean
-      @mean ||= (total.to_f / num_scores)
+      @mean ||= total.to_f / num_scores
     end
 
     def standard_deviation
@@ -30,7 +30,7 @@ module Ranker
     end
 
     def variance
-      @variance ||= (total_difference.to_f / num_scores)
+      @variance ||= total_difference.to_f / num_scores
     end
 
     def total
