@@ -41,7 +41,7 @@ ranking_1.score #=> 8
 
 ### Custom Ranking
 
-Custom ranking allows for ranking arbitrary types using a lambda.
+Custom ranking allows for ranking arbitrary types by using a lambda.
 
 ```ruby
 class Player
@@ -55,5 +55,17 @@ end
 players = [Player.new(0), Player.new(100), Player.new(1000), Player.new(25)]
 score = lambda { |player| player.score }
 rankings = Ranker.rank(players, :score => score)
+```
+
+In some cases objects need to be ranked in ascending order (e.g., Golf).
+
+
+```ruby
+class GolfPlayer < Player
+end
+
+players = [GolfPlayer.new(72), GolfPlayer.new(100), GolfPlayer.new(138), GolfPlayer.new(54)]
+score = lambda { |player| player.score }
+rankings = Ranker.rank(players, :score => score, :asc => false)
 ```
 
