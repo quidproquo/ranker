@@ -55,9 +55,10 @@ module Ranker::Strategies
     end
 
     def scores_unique_sorted
-      @scores_unique_sorted ||= begin
-        scores_unique_sorted = values_grouped_by_score.keys.sort!
-        scores_unique_sorted.reverse! if sort_desc?
+      @scores_unique_sorted ||= unless sort_desc?
+        values_grouped_by_score.keys.sort!
+      else
+        values_grouped_by_score.keys.sort!.reverse!
       end
     end
 
