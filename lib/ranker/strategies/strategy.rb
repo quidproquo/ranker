@@ -10,7 +10,7 @@ module Ranker::Strategies
       if options && options.kind_of?(Hash)
         @options = default_options.merge(options)
       else
-        @options = default_options.merge({})
+        @options = default_options
       end
     end
 
@@ -37,17 +37,17 @@ module Ranker::Strategies
 
     def default_options
       {
-        :score => lambda { |scorable| scorable },
-        :asc => true
+        :by => lambda { |scorable| scorable },
+        :desc => true
       }
     end
 
     def score
-      options[:score]
+      options[:by]
     end
 
-    def sort_asc?
-      options[:asc]
+    def sort_desc?
+      options[:desc]
     end
 
     def values_grouped_by_score
@@ -55,10 +55,9 @@ module Ranker::Strategies
     end
 
     def scores_unique_sorted
-      @scores_unique_sorted ||= if sort_asc?
-        values_grouped_by_score.keys.sort!.reverse!
-      else
-        values_grouped_by_score.keys.sort!
+      @scores_unique_sorted ||= begin
+        scores_unique_sorted = values_grouped_by_score.keys.sort!
+        scores_unique_sorted.reverse! if sort_desc?
       end
     end
 

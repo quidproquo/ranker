@@ -106,7 +106,7 @@ describe Ranker::Strategies::StandardCompetition do
         let(:value_3) { {:score => 2} }
         let(:value_4) { {:score => 1} }
         let(:values) { [value_1, value_2, value_3, value_4] }
-        let(:strategy) { klass.new(values, :score => lambda { |scorable| scorable[:score] }) }
+        let(:strategy) { klass.new(values, :by => lambda { |scorable| scorable[:score] }) }
         it { should have(3).items }
 
         context '1st ranking' do
