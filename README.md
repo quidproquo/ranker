@@ -6,7 +6,7 @@ A Ruby library for ranking scorable types using various ranking strategies.
 Compatibility
 -------------
 
-Ranker is tested against MRI (1.8.7+).
+Ranker is tested against MRI (1.8.7+) and JRuby (1.9.0+).
 
 Installation
 ------------
@@ -41,7 +41,7 @@ ranking_1.score #=> 8
 
 ### Custom Ranking
 
-Custom ranking allows for ranking arbitrary types by using a symbol or a lambda.
+Custom ranking allows for ranking of objects by using a symbol or a lambda.
 
 ```ruby
 class Player
@@ -58,7 +58,7 @@ rankings = Ranker.rank(players, :by => lambda { |player| player.score })
 rankings = Ranker.rank(players, :by => :score)
 ```
 
-In some cases objects need to be ranked in ascending order, for example, if you were ranking golf players.
+In some cases objects need to be ranked by score in ascending order, for example, if you were ranking golf players.
 
 
 ```ruby
@@ -68,4 +68,68 @@ end
 players = [GolfPlayer.new(72), GolfPlayer.new(100), GolfPlayer.new(138), GolfPlayer.new(54)]
 rankings = Ranker.rank(players, :by => :score, :desc => false)
 ```
+
+### Ranking Strategies
+
+Ranker has a number of ranking strategies available to use, mostly based on the Wikipedia entry on [ranking](http://en.wikipedia.org/wiki/Ranking). Strategies can be passed in as an option to the rank method.
+
+```ruby
+rankings = Ranker.rank(players, :by => :score, :strategy => :ordinal)
+```
+
+#### Standard Competition Ranking ("1224" ranking)
+
+This is the default ranking strategy. For more info, see the Wikipedia entry on [Standard Competition Ranking](http://en.wikipedia.org/wiki/Ranking#Standard_competition_ranking_.28.221224.22_ranking.29).
+
+```ruby
+rankings = Ranker.rank(players, :by => :score, :strategy => :standard_competition)
+```
+
+#### Modified Competition Ranking ("1334" ranking)
+
+For more info, see the Wikipedia entry on [Modified Competition Ranking](http://en.wikipedia.org/wiki/Ranking#Modified_competition_ranking_.28.221334.22_ranking.29).
+
+```ruby
+rankings = Ranker.rank(players, :by => :score, :strategy => :modified_competition)
+```
+
+#### Dense Ranking ("1223" ranking)
+
+For more info, see the Wikipedia entry on [Dense Ranking](http://en.wikipedia.org/wiki/Ranking#Dense_ranking_.28.221223.22_ranking.29).
+
+```ruby
+rankings = Ranker.rank(players, :by => :score, :strategy => :dense)
+```
+
+#### Ordinal Ranking ("1234" ranking)
+
+For more info, see the Wikipedia entry on [Ordinal Ranking](http://en.wikipedia.org/wiki/Ranking#Ordinal_ranking_.28.221234.22_ranking.29).
+
+```ruby
+rankings = Ranker.rank(players, :by => :score, :strategy => :ordinal)
+```
+
+#### Custom Ranking
+
+If you find the current strategies not to your liking, you can write your own and pass the class into the rank method.
+
+```ruby
+class MyCustomStrategy < Ranker::Strategies::Strategy
+
+  def execute
+    # My code here
+  end
+
+end
+
+rankings = Ranker.rank(players, :by => :score, :strategy => MyCustomStrategy)
+```
+
+
+Copyright
+---------
+
+Copyright &copy; 2013 Ilya Scharrenbroich. Released under the MIT License.
+
+
 
