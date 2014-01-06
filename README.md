@@ -32,7 +32,7 @@ Default ranking will assume values are numeric and rank them in descending order
 
 ```ruby
 scores = [1, 1, 2, 3, 3, 1, 4, 4, 5, 6, 8, 1, 0]
-rankings = Ranker.rank(values)
+rankings = Ranker.rank(scores)
 rankings.count #=> 8
 ranking_1 = rankings[0]
 ranking_1.rank #=> 1
@@ -41,7 +41,7 @@ ranking_1.score #=> 8
 
 ### Custom Ranking
 
-Custom ranking allows for ranking arbitrary types by using a lambda.
+Custom ranking allows for ranking arbitrary types by using a symbol or a lambda.
 
 ```ruby
 class Player
@@ -53,8 +53,9 @@ class Player
 end
 
 players = [Player.new(0), Player.new(100), Player.new(1000), Player.new(25)]
-score = lambda { |player| player.score }
-rankings = Ranker.rank(players, :score => score)
+rankings = Ranker.rank(players, :by => lambda { |player| player.score })
+# or
+rankings = Ranker.rank(players, :by => :score)
 ```
 
 In some cases objects need to be ranked in ascending order (e.g., Golf).
@@ -65,7 +66,6 @@ class GolfPlayer < Player
 end
 
 players = [GolfPlayer.new(72), GolfPlayer.new(100), GolfPlayer.new(138), GolfPlayer.new(54)]
-score = lambda { |player| player.score }
-rankings = Ranker.rank(players, :score => score, :asc => false)
+rankings = Ranker.rank(players, :by => :score, :desc => false)
 ```
 
