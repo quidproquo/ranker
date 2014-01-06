@@ -31,12 +31,17 @@ Usage
 Default ranking will assume values are numeric and rank them in descending order.
 
 ```ruby
-scores = [1, 1, 2, 3, 3, 1, 4, 4, 5, 6, 8, 1, 0]
+scores = [1, 1, 2, 3, 3, 1, 4, 4, 5, 6, 8, 1, 0, 8]
+
 rankings = Ranker.rank(scores)
 rankings.count #=> 8
-ranking_1 = rankings[0]
-ranking_1.rank #=> 1
-ranking_1.score #=> 8
+
+ranking = rankings[0]
+ranking.rank #=> 1
+ranking.score #=> 8
+ranking.rankables #=> [8, 8]
+ranking.percentile #=> 100
+ranking.z_score #=> 1.83921346366645
 ```
 
 ### Custom Ranking
