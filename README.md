@@ -58,7 +58,7 @@ rankings = Ranker.rank(players, :by => lambda { |player| player.score })
 rankings = Ranker.rank(players, :by => :score)
 ```
 
-In some cases objects need to be ranked in ascending order (e.g., Golf).
+In some cases objects need to be ranked in ascending order, for example, if you were ranking golf players.
 
 
 ```ruby
