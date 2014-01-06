@@ -1,7 +1,7 @@
 module Ranker::Strategies
 
   ##
-  # Ranks values according to: http://en.wikipedia.org/wiki/Ranking#Standard_competition_ranking_.28.221224.22_ranking.29
+  # Ranks rankables according to: http://en.wikipedia.org/wiki/Ranking#Standard_competition_ranking_.28.221224.22_ranking.29
   #
   class StandardCompetition < Strategy
 
@@ -10,9 +10,9 @@ module Ranker::Strategies
     def execute
       rank = 1
       scores_unique_sorted.each_with_index { |score, index|
-        values_for_score = values_for_score(score)
-        create_ranking(rank, score, values_for_score)
-        rank += values_for_score.count
+        rankables_for_score = rankables_for_score(score)
+        create_ranking(rank, score, rankables_for_score)
+        rank += rankables_for_score.count
       }
     end
 

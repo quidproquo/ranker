@@ -23,14 +23,14 @@ module Ranker
 
     # Methods:
 
-    def rank(values, *args)
+    def rank(rankables, *args)
       options = args.pop
       if options && options.kind_of?(Hash)
         options = default_options.merge(options)
       else
         options = default_options
       end
-      strategy = get_strategy(values, options)
+      strategy = get_strategy(rankables, options)
       strategy.rank
     end
 
@@ -41,17 +41,17 @@ module Ranker
 
     def default_options
       {
-        :strategy => :standard_competition,
-        :by => lambda { |scorable| scorable },
-        :desc => true
+        :by => lambda { |rankable| rankable },
+        :desc => true,
+        :strategy => :standard_competition
       }
     end
 
     # Methods:
 
-    def get_strategy(values, options)
+    def get_strategy(rankables, options)
       strategy_class = get_strategy_class(options[:strategy])
-      strategy_class.new(values, options)
+      strategy_class.new(rankables, options)
     end
 
     def get_strategy_class(strategy)

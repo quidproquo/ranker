@@ -6,12 +6,12 @@ describe Ranker do
   describe :class_methods do
 
     describe :rank do
-      let(:values) { raise NotImplementedError }
-      let(:rankings) { klass.rank(values) }
+      let(:rankables) { raise NotImplementedError }
+      let(:rankings) { klass.rank(rankables) }
       subject { rankings }
 
-      context 'when simple values are used' do
-        let(:values) { [1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 1, 1, 3] }
+      context 'when simple rankables are used' do
+        let(:rankables) { [1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 1, 1, 3] }
         subject { rankings }
         it { should have(7).items }
 
@@ -19,17 +19,17 @@ describe Ranker do
           let(:ranking) { rankings[0] }
           subject { ranking }
           its(:rank) { should == 1 }
-          its(:values) { should == [7, 7, 7] }
+          its(:rankables) { should == [7, 7, 7] }
         end
 
         context 'last ranking' do
           let(:ranking) { rankings[-1] }
           subject { ranking }
           its(:rank) { should == 11 }
-          its(:values) { should == [1, 1, 1, 1] }
+          its(:rankables) { should == [1, 1, 1, 1] }
         end
 
-      end # when simple values are used
+      end # when simple rankables are used
 
       context 'when ranking by symbol' do
         let(:player_1) { Player.new(150) }
@@ -44,21 +44,21 @@ describe Ranker do
           let(:ranking) { rankings[0] }
           subject { ranking }
           its(:rank) { should == 1 }
-          its(:values) { should =~ [player_1] }
+          its(:rankables) { should =~ [player_1] }
         end
 
         context '2nd ranking' do
           let(:ranking) { rankings[1] }
           subject { ranking }
           its(:rank) { should == 2 }
-          its(:values) { should =~ [player_2, player_3] }
+          its(:rankables) { should =~ [player_2, player_3] }
         end
 
         context '3rd ranking' do
           let(:ranking) { rankings[2] }
           subject { ranking }
           its(:rank) { should == 4 }
-          its(:values) { should =~ [player_4] }
+          its(:rankables) { should =~ [player_4] }
         end
 
       end # when ranking by symbol
@@ -76,21 +76,21 @@ describe Ranker do
           let(:ranking) { rankings[0] }
           subject { ranking }
           its(:rank) { should == 1 }
-          its(:values) { should =~ [player_4] }
+          its(:rankables) { should =~ [player_4] }
         end
 
         context '2nd ranking' do
           let(:ranking) { rankings[1] }
           subject { ranking }
           its(:rank) { should == 2 }
-          its(:values) { should =~ [player_2, player_3] }
+          its(:rankables) { should =~ [player_2, player_3] }
         end
 
         context '3rd ranking' do
           let(:ranking) { rankings[2] }
           subject { ranking }
           its(:rank) { should == 4 }
-          its(:values) { should =~ [player_1] }
+          its(:rankables) { should =~ [player_1] }
         end
 
       end # when ranking by symbol
@@ -108,21 +108,21 @@ describe Ranker do
           let(:ranking) { rankings[0] }
           subject { ranking }
           its(:rank) { should == 1 }
-          its(:values) { should =~ [player_1] }
+          its(:rankables) { should =~ [player_1] }
         end
 
         context '2nd ranking' do
           let(:ranking) { rankings[1] }
           subject { ranking }
           its(:rank) { should == 2 }
-          its(:values) { should =~ [player_2, player_3] }
+          its(:rankables) { should =~ [player_2, player_3] }
         end
 
         context '3rd ranking' do
           let(:ranking) { rankings[2] }
           subject { ranking }
           its(:rank) { should == 4 }
-          its(:values) { should =~ [player_4] }
+          its(:rankables) { should =~ [player_4] }
         end
 
       end # when ranking by symbol

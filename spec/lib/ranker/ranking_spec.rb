@@ -8,9 +8,9 @@ describe Ranker::Ranking do
   describe :properties do
 
     describe :percentile do
-      let(:values) { [1, 2, 3, 4, 5, 5, 1, 2] }
+      let(:rankables) { [1, 2, 3, 4, 5, 5, 1, 2] }
       before {
-        values.each_with_index { |value, index|
+        rankables.each_with_index { |value, index|
           rankings.create(index + 1, value, [value])
         }
       }
@@ -42,9 +42,9 @@ describe Ranker::Ranking do
     end # percentile
 
     describe :z_score do
-      let(:values) { [1, 2, 3, 4, 5, 5, 1, 2] }
+      let(:rankables) { [1, 2, 3, 4, 5, 5, 1, 2] }
       before {
-        values.each_with_index { |value, index|
+        rankables.each_with_index { |value, index|
           rankings.create(index + 1, value, [value])
         }
       }
@@ -74,7 +74,7 @@ describe Ranker::Ranking do
       end
 
       context 'when standard deviation is zero' do
-        let(:values) { [1, 1, 1, 1, 1, 1, 1] }
+        let(:rankables) { [1, 1, 1, 1, 1, 1, 1] }
 
         context '1st ranking' do
           let(:ranking) { rankings[0] }

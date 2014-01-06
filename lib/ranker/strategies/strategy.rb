@@ -2,10 +2,10 @@ module Ranker::Strategies
 
   class Strategy
 
-    attr_reader :values, :options
+    attr_reader :rankables, :options
 
-    def initialize(values, *args)
-      @values = values
+    def initialize(rankables, *args)
+      @rankables = rankables
       options = args.pop
       if options && options.kind_of?(Hash)
         @options = default_options.merge(options)
@@ -37,7 +37,7 @@ module Ranker::Strategies
 
     def default_options
       {
-        :by => lambda { |scorable| scorable },
+        :by => lambda { |rankable| rankable },
         :desc => true
       }
     end
@@ -50,31 +50,31 @@ module Ranker::Strategies
       options[:desc]
     end
 
-    def values_grouped_by_score
-      @values_grouped_by_score ||= values.group_by(&score)
+    def rankables_grouped_by_score
+      @rankables_grouped_by_score ||= rankables.group_by(&score)
     end
 
     def scores_unique_sorted
       @scores_unique_sorted ||= unless sort_desc?
-        values_grouped_by_score.keys.sort!
+        rankables_grouped_by_score.keys.sort!
       else
-        values_grouped_by_score.keys.sort!.reverse!
+        rankables_grouped_by_score.keys.sort!.reverse!
       end
     end
 
 
     # Methods:
 
-    def create_ranking(rank, score, values)
-      rankings.create(rank, score, values)
+    def create_ranking(rank, score, rankables)
+      rankings.create(rank, score, rankables)
     end
 
     def execute
       raise NotImplementedError.new('You must implement the execute method.')
     end
 
-    def values_for_score(score)
-      values_grouped_by_score[score]
+    def rankables_for_score(score)
+      rankables_grouped_by_score[score]
     end
 
   end # class

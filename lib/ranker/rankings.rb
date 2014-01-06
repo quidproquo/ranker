@@ -46,9 +46,9 @@ module Ranker
 
     # Methods:
 
-    def create(rank, score, values)
-      scores.concat(Array.new(values.count, score))
-      self << Ranking.new(self, self.count, rank, score, values)
+    def create(rank, score, rankables)
+      scores.concat(Array.new(rankables.count, score))
+      self << Ranking.new(self, self.count, rank, score, rankables)
     end
 
   end # class
