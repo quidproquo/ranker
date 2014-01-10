@@ -38,7 +38,7 @@ module Ranker::Strategies
     def default_options
       {
         :by => lambda { |rankable| rankable },
-        :desc => true
+        :asc => true
       }
     end
 
@@ -46,8 +46,8 @@ module Ranker::Strategies
       options[:by]
     end
 
-    def sort_desc?
-      options[:desc]
+    def sort_asc?
+      options[:asc] == true
     end
 
     def rankables_grouped_by_score
@@ -55,7 +55,7 @@ module Ranker::Strategies
     end
 
     def scores_unique_sorted
-      @scores_unique_sorted ||= unless sort_desc?
+      @scores_unique_sorted ||= unless sort_asc?
         rankables_grouped_by_score.keys.sort!
       else
         rankables_grouped_by_score.keys.sort!.reverse!

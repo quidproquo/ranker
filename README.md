@@ -28,7 +28,7 @@ Usage
 
 ### Default Ranking
 
-Default ranking will assume values are numeric and rank them in descending order.
+Default ranking will assume values are numeric and rank them in their natural sorting (ascending) order. For example, a score of 100 is higher than a score of 50.
 
 ```ruby
 scores = [1, 1, 2, 3, 3, 1, 4, 4, 5, 6, 8, 1, 0, 8]
@@ -63,7 +63,7 @@ rankings = Ranker.rank(players, :by => lambda { |player| player.score })
 rankings = Ranker.rank(players, :by => :score)
 ```
 
-In some cases objects need to be ranked by score in ascending order, for example, if you were ranking golf players.
+In some cases objects need to be ranked by score in descending order, for example, if you were ranking golf players. In this case a score of 75 is higher than a score of 100.
 
 
 ```ruby
@@ -71,7 +71,7 @@ class GolfPlayer < Player
 end
 
 players = [GolfPlayer.new(72), GolfPlayer.new(100), GolfPlayer.new(138), GolfPlayer.new(54)]
-rankings = Ranker.rank(players, :by => :score, :desc => false)
+rankings = Ranker.rank(players, :by => :score, :asc => false)
 ```
 
 ### Ranking Strategies

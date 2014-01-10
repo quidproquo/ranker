@@ -63,13 +63,13 @@ describe Ranker do
 
       end # when ranking by symbol
 
-      context 'when ranking by symbol and desc false' do
+      context 'when ranking by symbol and asc false' do
         let(:player_1) { Player.new(150) }
         let(:player_2) { Player.new(100) }
         let(:player_3) { Player.new(100) }
         let(:player_4) { Player.new(25) }
         let(:players) { [player_1, player_2, player_3, player_4] }
-        let(:rankings) { klass.rank(players, :by => :score, :desc => false) }
+        let(:rankings) { klass.rank(players, :by => :score, :asc => false) }
         it { should have(3).items }
 
         context '1st ranking' do
