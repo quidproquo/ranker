@@ -17,7 +17,11 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*']
 
   # Development:
-  s.add_development_dependency 'coveralls'
+  
+  if RUBY_VERSION > "1.8.7"
+    s.add_development_dependency 'coveralls'
+  end
+
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'rspec'
