@@ -18,10 +18,7 @@ Gem::Specification.new do |s|
 
   # Development:
   
-  if RUBY_VERSION > "1.8.7"
-    s.add_development_dependency 'coveralls'
-  end
-
+  s.add_development_dependency 'coveralls'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
   s.add_development_dependency 'rspec'
