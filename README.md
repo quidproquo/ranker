@@ -1,4 +1,4 @@
-Ranker [![Build Status](https://travis-ci.org/quidproquo/ranker.png?branch=master)](http://travis-ci.org/quidproquo/ranker) [![Code Climate](https://codeclimate.com/github/quidproquo/ranker.png)](https://codeclimate.com/github/quidproquo/ranker)
+Ranker [![Build Status](https://travis-ci.org/quidproquo/ranker.png?branch=master)](http://travis-ci.org/quidproquo/ranker) [![Code Climate](https://codeclimate.com/github/quidproquo/ranker.png)](https://codeclimate.com/github/quidproquo/ranker) [![Coverage Status](https://coveralls.io/repos/quidproquo/ranker/badge.png?branch=master)](https://coveralls.io/r/quidproquo/ranker?branch=master)
 ======
 
 A Ruby library for ranking scorable types using various ranking strategies.
