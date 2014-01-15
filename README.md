@@ -14,7 +14,7 @@ Installation
 With bundler, add the `ranker` gem to your `Gemfile`.
 
 ```ruby
-gem "ranker", "~> 1.0"
+gem "ranker"
 ```
 
 Require the `ranker` gem in your application.
