@@ -12,6 +12,10 @@ module Ranker
 
     # Properties:
 
+    def errors
+      @errors ||= {}
+    end
+
     def mean
       @mean ||= total.to_f / num_scores
     end
@@ -34,6 +38,9 @@ module Ranker
     end
 
     def total
+      unless valid?
+        raise RankingsError.new(errors)
+      end
       @total ||= scores.reduce(:+)
     end
 
@@ -43,14 +50,54 @@ module Ranker
       }
     end
 
+    def valid?
+      validate
+      errors.empty?
+    end
+
 
     # Methods:
 
-    def create(rank, score, rankables)
+    def create_ranking(rank, score, rankables)
       scores.concat(Array.new(rankables.count, score))
-      self << Ranking.new(self, self.count, rank, score, rankables)
+      ranking = Ranking.new(self, self.count, rank, score, rankables)
+      self << ranking
+      ranking
     end
 
-  end # class
 
-end # module
+    protected
+
+    def validate
+      errors.clear
+      validate_scores
+    end
+
+    def validate_scores
+      if scores_have_nil_values?
+        errors['scores'] = 'contains nil values'
+      end
+    end
+
+    def scores_have_nil_values?
+      scores.any? { |score|
+        score == nil
+      }
+    end
+
+  end # Rankings class
+
+
+  class RankingsError < StandardError
+
+    def initialize(errors)
+      message = 'Rankings has errors: '
+      message << errors.map { |name, error|
+        "#{name} #{error}"
+      }.join(', ')
+      super(message)
+    end
+
+  end # RankingError class
+
+end # Ranker module

@@ -66,7 +66,7 @@ module Ranker::Strategies
     # Methods:
 
     def create_ranking(rank, score, rankables)
-      rankings.create(rank, score, rankables)
+      rankings.create_ranking(rank, score, rankables)
     end
 
     def execute

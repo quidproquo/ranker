@@ -12,7 +12,7 @@ describe Ranker::Rankings do
       subject { rankings.mean }
       before {
         rankables.each_with_index { |value, index|
-          rankings.create(index + 1, value, [value])
+          rankings.create_ranking(index + 1, value, [value])
         }
       }
 
@@ -26,6 +26,13 @@ describe Ranker::Rankings do
         it { should be_nan }
       end
 
+      context 'when rankables contain nil values' do
+        let(:rankables) { [1, 2, 3, nil, 5, 6, 7] }
+        it 'should raise an error' do
+          lambda { rankings.mean }.should raise_error(Ranker::RankingsError)
+        end
+      end
+
     end # mean
 
     describe :standard_deviation do
@@ -33,7 +40,7 @@ describe Ranker::Rankings do
       subject { rankings.standard_deviation }
       before {
         rankables.each_with_index { |value, index|
-          rankings.create(index + 1, value, [value])
+          rankings.create_ranking(index + 1, value, [value])
         }
       }
 
@@ -52,7 +59,42 @@ describe Ranker::Rankings do
         it { should be_nan }
       end
 
+      context 'when rankables contain nil values' do
+        let(:rankables) { [1, 2, 3, nil, 5, 6, 7] }
+        it 'should raise an error' do
+          lambda { rankings.standard_deviation }.should raise_error(Ranker::RankingsError)
+        end
+      end
+
     end # standard_deviation
+
+    describe :valid? do
+      let(:rankables) { raise NotImplementedError }
+      let(:valid) { rankings.valid? }
+      subject { valid }
+      before {
+        rankables.each_with_index { |value, index|
+          rankings.create_ranking(index + 1, value, [value])
+        }
+        valid
+      }
+
+      context 'when rankables are not nil' do
+        let(:rankables) { [1, 2, 3, 4, 5, 6, 7] }
+        it { should == true }
+      end
+
+      context 'when rankables contain nil values' do
+        let(:rankables) { [1, 2, 3, nil, 5, 6, 7] }
+        it { should == false }
+
+        context 'errors' do
+          subject { rankings.errors['scores'] }
+          it { should == 'contains nil values' }
+        end
+      end
+
+    end # valid?
 
   end # properties
 

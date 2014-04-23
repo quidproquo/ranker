@@ -11,7 +11,7 @@ describe Ranker::Ranking do
       let(:rankables) { [1, 2, 3, 4, 5, 5, 1, 2] }
       before {
         rankables.each_with_index { |value, index|
-          rankings.create(index + 1, value, [value])
+          rankings.create_ranking(index + 1, value, [value])
         }
       }
 
@@ -45,7 +45,7 @@ describe Ranker::Ranking do
       let(:rankables) { [1, 2, 3, 4, 5, 5, 1, 2] }
       before {
         rankables.each_with_index { |value, index|
-          rankings.create(index + 1, value, [value])
+          rankings.create_ranking(index + 1, value, [value])
         }
       }
 
