@@ -40,7 +40,6 @@ module Ranker::Strategies
 
     def rank
       raise Error.new(errors) unless valid?
-
       execute
       rankings
     end

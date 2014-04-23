@@ -5,6 +5,10 @@ describe Ranker::Rankings do
   let(:strategy) { double(:strategy) }
   let(:rankings) { klass.new(strategy) }
 
+  before {
+    strategy.stub(:rank)
+  }
+
   describe :properties do
 
     describe :mean do

@@ -8,7 +8,7 @@ describe Ranker::Strategies::Ordinal do
     describe :rank do
       let(:rankables) { raise ArgumentError }
       let(:strategy) { klass.new(rankables) }
-      let(:rankings) { strategy.rank }
+      let(:rankings) { strategy.rankings }
       subject { rankings }
 
       context 'when list of rankables is large' do

@@ -5,6 +5,10 @@ describe Ranker::Ranking do
   let(:strategy) { double(:strategy) }
   let(:rankings) { Ranker::Rankings.new(strategy) }
 
+  before {
+    strategy.stub(:rank)
+  }
+
   describe :properties do
 
     describe :percentile do

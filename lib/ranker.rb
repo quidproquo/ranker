@@ -31,7 +31,7 @@ module Ranker
         options = default_options
       end
       strategy = get_strategy(rankables, options)
-      strategy.rank
+      strategy.rankings
     end
 
 

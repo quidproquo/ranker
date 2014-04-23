@@ -1,6 +1,7 @@
 module Ranker
 
-  class Rankings < Array
+  class Rankings
+    include Enumerable
 
     attr_reader :strategy, :scores
 
@@ -60,12 +61,51 @@ module Ranker
     def create_ranking(rank, score, rankables)
       scores.concat(Array.new(rankables.count, score))
       ranking = Ranking.new(self, self.count, rank, score, rankables)
-      self << ranking
+      rankings << ranking
       ranking
     end
 
 
+    # Enumerable overrides:
+
+    # Properties:
+
+    def first
+      rankings.first
+    end
+
+    def last
+      rankings.last
+    end
+
+
+    # Methods:
+
+    def [](index)
+      rankings[index]
+    end
+
+    def each(&block)
+      rankings.each(&block)
+    end
+
+
     protected
+
+    # Properties:
+
+    def rankings
+      if defined?(@rankings)
+        @rankings
+      else
+        @rankings = []
+        strategy.rank
+        @rankings
+      end
+    end
+
+
+    # Methods:
 
     def validate
       errors.clear
