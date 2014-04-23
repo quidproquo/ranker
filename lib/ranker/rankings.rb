@@ -38,9 +38,8 @@ module Ranker
     end
 
     def total
-      unless valid?
-        raise RankingsError.new(errors)
-      end
+      raise Error.new(errors) unless valid?
+
       @total ||= scores.reduce(:+)
     end
 
@@ -85,19 +84,21 @@ module Ranker
       }
     end
 
+
+    # Inner classes:
+
+    class Error < StandardError
+
+      def initialize(errors)
+        message = 'Rankings has errors: '
+        message << errors.map { |name, error|
+          "#{name} #{error}"
+        }.join(', ')
+        super(message)
+      end
+
+    end # Error class
+
   end # Rankings class
-
-
-  class RankingsError < StandardError
-
-    def initialize(errors)
-      message = 'Rankings has errors: '
-      message << errors.map { |name, error|
-        "#{name} #{error}"
-      }.join(', ')
-      super(message)
-    end
-
-  end # RankingError class
 
 end # Ranker module

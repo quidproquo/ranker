@@ -29,7 +29,7 @@ describe Ranker::Rankings do
       context 'when rankables contain nil values' do
         let(:rankables) { [1, 2, 3, nil, 5, 6, 7] }
         it 'should raise an error' do
-          lambda { rankings.mean }.should raise_error(Ranker::RankingsError)
+          lambda { rankings.mean }.should raise_error(Ranker::Rankings::Error)
         end
       end
 
@@ -62,7 +62,7 @@ describe Ranker::Rankings do
       context 'when rankables contain nil values' do
         let(:rankables) { [1, 2, 3, nil, 5, 6, 7] }
         it 'should raise an error' do
-          lambda { rankings.standard_deviation }.should raise_error(Ranker::RankingsError)
+          lambda { rankings.standard_deviation }.should raise_error(Ranker::Rankings::Error)
         end
       end
 
