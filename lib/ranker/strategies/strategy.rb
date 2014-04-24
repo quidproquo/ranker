@@ -112,7 +112,7 @@ module Ranker::Strategies
 
     # Inner classes:
 
-    class Error < StandardError
+    class Error < Ranker::Error
 
       def initialize(errors)
         message = 'Strategy has errors: '

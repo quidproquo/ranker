@@ -1,3 +1,4 @@
+require 'ranker/error'
 require 'ranker/ranking'
 require 'ranker/rankings'
 require 'ranker/strategies'

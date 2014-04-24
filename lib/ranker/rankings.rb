@@ -87,7 +87,7 @@ module Ranker
 
     # Inner classes:
 
-    class Error < StandardError
+    class Error < Ranker::Error
 
       def initialize(errors)
         message = 'Rankings has errors: '
